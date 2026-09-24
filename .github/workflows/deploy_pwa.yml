@@ -1,0 +1,38 @@
+name: Deploy Flet PWA to GitHub Pages
+
+on:
+  push:
+    branches: [ main ] # Triggers the build every time you push code
+  workflow_dispatch: # Allows you to run it manually from GitHub
+
+permissions:
+  pages: write
+  id-token: write
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.14
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.14' # Force GitHub to run your exact Python version
+
+      - name: Install Flet
+        run: pip install flet
+
+      - name: Build Web App
+        run: |
+          # This compiles your 3.14 app into web files and hooks up your repository name
+          flet build web --base-url /${{ github.event.repository.name }}/
+
+      - name: Upload Pages Artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: build/web
+
+      - name: Deploy to GitHub Pages
+        uses: actions/deploy-pages@v4
