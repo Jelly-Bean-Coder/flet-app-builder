@@ -19,15 +19,15 @@ jobs:
       - name: Set up Python 3.14
         uses: actions/setup-python@v5
         with:
-          python-version: '3.14' # Force GitHub to run your exact Python version
+          python-version: '3.14'
 
       - name: Install Flet
         run: pip install flet
 
       - name: Build Web App
         run: |
-          # This compiles your 3.14 app into web files and hooks up your repository name
-          flet build web --base-url /${{ github.event.repository.name }}/
+          # Added --no-interactive so GitHub automatically accepts the Flutter installation
+          flet build web --no-interactive --base-url /${{ github.event.repository.name }}/
 
       - name: Upload Pages Artifact
         uses: actions/upload-pages-artifact@v3
