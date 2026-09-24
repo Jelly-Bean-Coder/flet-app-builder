@@ -25,12 +25,9 @@ jobs:
         run: pip install flet
 
       - name: Build Web App
-        env:
-          # Tells Flet it's a silent environment, turning off prompts
-          FLET_CLI_NO_RICH_OUTPUT: "true" 
         run: |
           # Removed the broken flag; the env variable above handles the prompt safely
-          flet build web --base-url /${{ github.event.repository.name }}/
+          flet build web --yes --base-url /${{ github.event.repository.name }}/
 
       - name: Upload Pages Artifact
         uses: actions/upload-pages-artifact@v3
