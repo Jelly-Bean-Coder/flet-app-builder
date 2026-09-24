@@ -25,9 +25,12 @@ jobs:
         run: pip install flet
 
       - name: Build Web App
+        env:
+          # Tells Flet it's a silent environment, turning off prompts
+          FLET_CLI_NO_RICH_OUTPUT: "true" 
         run: |
-          # Added --no-interactive so GitHub automatically accepts the Flutter installation
-          flet build web --no-interactive --base-url /${{ github.event.repository.name }}/
+          # Removed the broken flag; the env variable above handles the prompt safely
+          flet build web --base-url /${{ github.event.repository.name }}/
 
       - name: Upload Pages Artifact
         uses: actions/upload-pages-artifact@v3
