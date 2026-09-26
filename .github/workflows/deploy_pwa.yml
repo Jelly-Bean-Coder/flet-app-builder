@@ -27,7 +27,7 @@ jobs:
       - name: Build Web App
         run: |
           # Removed the broken flag; the env variable above handles the prompt safely
-          flet build web --yes --base-url /${{ github.event.repository.name }}/ --name "Study Timer"
+          flet build web --yes
 
       - name: Upload Pages Artifact
         uses: actions/upload-pages-artifact@v3
