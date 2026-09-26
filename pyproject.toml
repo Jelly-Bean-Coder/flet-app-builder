@@ -1,0 +1,5 @@
+[tool.flet]
+product = "Study Timer"
+
+[tool.flet.web]
+base_url = "/flet-app-builder/"
